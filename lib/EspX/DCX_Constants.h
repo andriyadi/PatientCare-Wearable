@@ -13,7 +13,8 @@
 #define DEBUG_SERIAL_LN     Serial.println()
 #endif
 
-#define SETTING_DEFAULT_AP_NAME             "ESPectro_000"
+#define SETTING_DEFAULT_ID                  "beastmaster-01"
+#define SETTING_DEFAULT_AP_NAME             "ESP82566_" SETTING_DEFAULT_ID
 #define SETTING_DEFAULT_AP_PASS             "11223344"
 #define SETTING_FORCE_INIT                  false
 

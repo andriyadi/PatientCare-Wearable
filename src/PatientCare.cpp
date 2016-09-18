@@ -95,7 +95,6 @@ void setup() {
 
 void processDetectedActivity(boolean isAct, float x, float y, float z) {
 
-//    pulseAnimation.start();
     board.turnOnLED();
 //    digitalWrite(10, 1);
 
@@ -107,34 +106,34 @@ void processDetectedActivity(boolean isAct, float x, float y, float z) {
     dtostrf(z, 6, 2, zStr);
     dtostrf(acc, 6, 2, accStr);
 
-    //SHT31
-    char tStr[9], hStr[9];
-    dtostrf(hdc1000->getTemp(), 3, 2, tStr);
-    dtostrf(hdc1000->getHumi(), 3, 2, hStr);
+    //HDC1000
+    char tStr[9] = "0\0", hStr[9] = "0\0";
+    if (hdc1000 != NULL) {
+        dtostrf(hdc1000->getTemp(), 3, 2, tStr);
+        dtostrf(hdc1000->getHumi(), 3, 2, hStr);
 
-    Serial.print("Temperature: ");
-    Serial.print(hdc1000->getTemp());
-    Serial.print("C, Humidity: ");
-    Serial.print(hdc1000->getHumi());
-    Serial.println("%");
-
+        Serial.print("Temperature: ");
+        Serial.print(hdc1000->getTemp());
+        Serial.print("C, Humidity: ");
+        Serial.print(hdc1000->getHumi());
+        Serial.println("%");
+    }
 
     uint16_t battMV = ESP.getVcc();
+
     char payloadStr[100];
-    //sprintf(payloadStr, "T1=%s&P=%s&H1=%s&AX=%s&AY=%s&AZ=%s&GX=%s&GY=%s&GZ=%s&MX=%s&MY=%s&MZ=%s&MH=%s&T2=%s&H2=%s&L=%s&S=%d&G=%d&B=%d",
     sprintf(payloadStr, "T=%s&H=%s&ACC=%s&AX=%s&AY=%s&AZ=%s&ACT=%d&B=%d&ID=%s",
             tStr, hStr,
             accStr,
             xStr, yStr, zStr,
             isAct,
             battMV,
-            "beastmaster-01"
+            SETTING_DEFAULT_ID
     );
 
     String payload = String(payloadStr);
     payload.replace(" ", "");
 
-    //loraSvc.publish(payloadStr, false, true);
     loraSvc.publish(payload, false, true);
 }
 
@@ -157,7 +156,6 @@ void loop() {
             if (millis() - mpuMotionDetectedStartMillis_ > 7000) {
 
 //               digitalWrite(10, 0);
-                //pulseAnimation.end();
                 board.turnOffLED();
 
                 Serial.println(F("Sending motion"));
