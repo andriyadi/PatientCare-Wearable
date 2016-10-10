@@ -16,13 +16,13 @@
 
 //ADC_MODE(ADC_VCC);
 
-#define DEVICE_ID   "PatientCareWearable-01"
+#define DEVICE_ID   "Wearable-01"
 #define MOTION_INT_PIN      10
-#define LORA_MESSAGE_PREFIX     "\\%"  //"\\#"
+#define LORA_MESSAGE_PREFIX     "\\%"  // use this prefix "\\#" for targeting Azure IoT Hub, so Gateway know how to relay
 
 const uint16_t HEARTRATE_READING_DURATION = 5000;
-const uint16_t HEARTRATE_READING_INTERVAL = 10000;
-const uint16_t TELEMETRY_PUBLISH_INTERVAL = 20000;
+const uint16_t HEARTRATE_READING_INTERVAL = 15000;
+const uint16_t TELEMETRY_PUBLISH_INTERVAL = 30000;
 
 ESPectro board;
 
@@ -212,7 +212,7 @@ void publishTelemetry() {
 
     Serial.println(payload);
 
-    loraSvc.publish(payload, false, true);
+    loraSvc.publish(payload, false, false);
 }
 
 void loop() {
@@ -265,8 +265,8 @@ void loop() {
 
     if (now - telemetryPublishMillis_ > TELEMETRY_PUBLISH_INTERVAL || fallDetected) {
         fallDetected = false;
-        publishTelemetry();
         telemetryPublishMillis_ = now;
+        publishTelemetry();        
     }
 
     delay(1);
