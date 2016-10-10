@@ -1,6 +1,12 @@
 # PatientCare-Wearable
 Wearable that detects patient comfort, heart beat, and falling movement. 
 
+To install this firmware on ESP9266-based board, all you have to do is open Terminal/Command Prompt and from current directory just type: 
+
+```pio run -t upload```
+
+Of course, you need to install PlatformIO first on your development machine, as this project is created with it. If you don't use [ESPectro board](https://shop.makestro.com/product/espectro-core/), change `platformio.ini` file.
+
 This project is related to the gateway project here: [https://github.com/andriyadi/PatientCare-Gateway](https://github.com/andriyadi/PatientCare-Gateway). 
 Make sure to deploy it successfully on your Raspberry Pi.
 
