@@ -9,3 +9,5 @@ Refer to this [writing](https://www.hackster.io/andri/patientcare-for-samsung-ar
 
 When you're successfully deploy everything, you'll see on Artik Cloud device log like this:
 ![Dashboard](https://raw.githubusercontent.com/andriyadi/PatientCare-Wearable/master/assets/Artik/Dashboard.png)
+
+As you can see on that image is that upon the falling is detected by acceleration sensor, FallDetected field will be "true" (green).
